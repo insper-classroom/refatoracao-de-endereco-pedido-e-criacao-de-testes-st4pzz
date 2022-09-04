@@ -38,8 +38,14 @@ class Endereco:
             self.complemento = complemento
             self.cep = str(cep)
 
-
-    def consultar_cep(self, cep):
+    @classmethod
+    def consultar_cep(cls,cep):
+        
+        if len(str(cep)) < 8:
+            cep = str(cep)
+            cep = cep.zfill(8)
+            print(cep)
+            
         '''
         Metodo realiza a consulta do cep em uma api publica para obter informações
         como estado, cidade e rua
@@ -47,20 +53,35 @@ class Endereco:
         # continuam existindo variaveis locais, nem tudo é propriedade de objeto
 
         # end point da API de consulta ao cep
-        url_api = f'https://viacep.com.br/ws/{str(cep)}/json/'
-
+        url_api = f'https://viacep.com.br/ws/{cep}/json/'
+        
         # Sem corpo na requisição
         # Não é necessario nenhum cabeçalho HTTP especial
         payload = {}
         headers = {}
 
         # requisição GET na url de pesquisa do cep. Doc.: https://viacep.com.br/
+        # try:
         response = requests.request("GET", url_api, headers=headers, data=payload)
-
+        
+        #     return False
+        
         # converte a resposta json em dict
         json_resp = response.json()
-        return json_resp
+        
+        if 'erro' in json_resp.keys() :
+            return True
+        else:
+            return json_resp
+       
+        
+        
+    
+    
+    
 
+    def __str__(self):
+        return f'/numero: {self.numero}/cep: {self.cep}'
 
 
 

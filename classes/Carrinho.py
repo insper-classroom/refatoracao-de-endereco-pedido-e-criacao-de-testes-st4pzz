@@ -22,10 +22,32 @@ class Carrinho:
     def adicionar_item(self, item:Produto, qtd):
         
         id = item.get_id()
-        
+        if len(self.__itens) == 0:
+            self.__itens[id] = qtd
+        else:
+
+            for ids in self.__itens.keys():
+
+                if id in ids:
+
+                    self.__itens[id] += qtd
+                else:
+                    self.__itens[id] = qtd
         # Implemente a adição do item no dicionário
         
 
-    def remover_item(self, item:Produto):
-        pass
+    def remover_item(self, item:Produto, qtd):
+        id = item.get_id()
+        if self.__itens[id] - qtd <= 0:
+
+            del self.__itens[id]
+        else:
+            self.__itens[id] -= qtd
+
         # Implemente este método
+
+    def retorna_itens(self):
+        return f'{self.__itens}'
+
+    def __str__(self):
+        return self.__itens

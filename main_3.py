@@ -7,6 +7,10 @@
 # ---------------------------------------------------------------------------
 from classes.PessoaFisica import PessoaFisica
 from classes.Endereco import Endereco
+from classes.Pagamentos import Pagamento
+from classes.Produto import Produto
+from classes.Pedido import Pedido
+from classes.Carrinho import Carrinho
 
 import copy
 
@@ -52,18 +56,18 @@ if len(produtos) > 0:
 
 
 carrinho = Carrinho()
-carrinho.adicionar_item(sabonete)
+carrinho.adicionar_item(sabonete,2)
+print(carrinho)
+pedido = Pedido(pessoa1,carrinho)
 
-pedido = Pedido()
+ends = pessoa1.listar_enderecos()
 
-ends = pessoa.listar_enderecos()
-
-if len(ends > 0):
+if len(ends) > 0:
     endereco = ends[0]
 
 # Lembre-se de adicionar estes atributos ao endereço
-pedido.endereco_entrega = copy.deepcopy(endereco) 
-pedido.endereco_faturamento = copy.deepcopy(endreco)
+pedido.endereco_entrega = copy.deepcopy(end1) 
+pedido.endereco_faturamento = copy.deepcopy(end2)
 
 
 pag = Pagamento(pedido)
